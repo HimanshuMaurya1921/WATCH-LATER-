@@ -212,6 +212,96 @@ gcloud projects add-iam-policy-binding piyush-gcp \
 ---
 
 ## Step 5 — Create Jenkins Bastion VM
+#### Step 1 — Create Service Account
+
+Create a dedicated service account for Jenkins master VM.
+
+```bash
+gcloud iam service-accounts create jenkins-master-sa \
+  --project piyush-gcp \
+  --display-name "Jenkins Master Service Account"
+```
+
+Service account email:
+
+```
+jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com
+```
+
+---
+
+#### Step 2 — Grant permissions for GKE access
+
+Since this VM is also used as a bastion host inside the VPC,
+we grant full GKE permissions.
+
+Full access (recommended for bastion / admin / Jenkins)
+
+```bash
+gcloud projects add-iam-policy-binding piyush-gcp \
+  --member=serviceAccount:jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com \
+  --role=roles/container.admin
+```
+
+This allows:
+
+- get-credentials
+- kubectl access
+- deploy workloads
+- create namespaces
+- create pods
+- create services
+- helm install / upgrade
+- CI/CD deployments
+- cluster operations
+
+Suitable for:
+
+- Jenkins master
+- Bastion host
+- Admin VM
+- CI/CD runner
+
+---
+
+#### Step 3 — Recommended extra roles (for Jenkins / CI/CD)
+
+Some Jenkins plugins, kubectl operations, or Workload Identity
+require additional permissions.
+
+Allow Jenkins to use service accounts
+
+```bash
+gcloud projects add-iam-policy-binding piyush-gcp \
+  --member=serviceAccount:jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com \
+  --role=roles/iam.serviceAccountUser
+```
+
+Allow read access to Compute resources
+
+```bash
+gcloud projects add-iam-policy-binding piyush-gcp \
+  --member=serviceAccount:jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com \
+  --role=roles/compute.viewer
+```
+
+Needed for:
+
+- some Jenkins plugins
+- kubectl auth
+- workload identity
+- cluster operations
+- reading instance / network metadata
+
+---
+
+## Notes
+
+- This service account will be attached to the Jenkins VM
+- VM must be inside the same VPC as the private GKE cluster
+- Use --scopes=cloud-platform when creating the VM
+- No need to run gcloud auth login inside Jenkins VM
+
 
 Jenkins serves two purposes here:
 1. **CI/CD server** — runs pipelines, deploys to GKE
@@ -233,9 +323,14 @@ gcloud compute instances create jenkins-master-vm \
   --subnet=subnet-1 \
   --tags=jenkins-master \
   --address=jenkins-master-ip \
+  --service-account=jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com \
   --scopes=cloud-platform
 ```
 
+```bash
+#this is important
+  --service-account=jenkins-master-sa@piyush-gcp.iam.gserviceaccount.com \
+```
 ---
 
 ## Step 6 — Firewall Rules for Jenkins
