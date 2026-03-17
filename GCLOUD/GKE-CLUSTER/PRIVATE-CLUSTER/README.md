@@ -334,12 +334,16 @@ gcloud beta container \
   --enable-ip-access \
   --enable-dataplane-v2 \
   --disable-default-snat \
-  --no-enable-intra-node-visibility \
   --no-enable-google-cloud-access \
   --network "projects/piyush-gcp/global/networks/vpc-gke" \
   --subnetwork "projects/piyush-gcp/regions/us-central1/subnetworks/subnet-1" \
   --cluster-secondary-range-name "gke-pods" \
   --services-secondary-range-name "gke-services" \
+
+#With --no-enable-intra-node-visibility
+#Pod-to-pod on same node = kernel handles it.
+#VPC doesn't see it(No-VPC Flow Log visibility). Faster. Cheaper.
+  --no-enable-intra-node-visibility \
 
 # Keep API accessible from within the VPC (Jenkins internal IP)
   --enable-master-authorized-networks \
