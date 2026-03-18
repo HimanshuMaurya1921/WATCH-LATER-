@@ -535,7 +535,7 @@ gcloud compute ssh jenkins-master-vm \
   --project=piyush-gcp \
   --zone=us-central1-a \
   --tunnel-through-iap \
-  --internal-ip
+
 
 #To increase the performance of the tunnel, consider installing NumPy. For instructions,
 #please see https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
@@ -556,9 +556,11 @@ sudo apt-get update
 sudo apt-get install -y kubectl google-cloud-sdk-gke-gcloud-auth-plugin
 
 # Get cluster credentials
+#our gke-cluster inside private vpc so use this :   --internal-ip
 gcloud container clusters get-credentials standard-cluster-private-1 \
   --region us-central1 \
   --project piyush-gcp
+  --internal-ip
 
 # Verify everything is working
 kubectl get nodes
