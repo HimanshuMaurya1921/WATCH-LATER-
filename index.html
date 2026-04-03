@@ -619,14 +619,14 @@
         <div class="compare-cell">
           <ul>
             <li>Adds/removes pod <strong>REPLICAS</strong></li>
-            <li>Based on CPU, memory, custom metrics</li>
+            <li>Based on CPU-REQ, memory-REQ, custom metrics</li>
             <li>For stateless services</li>
             <li>Never use with VPA Auto simultaneously</li>
           </ul>
         </div>
         <div class="compare-cell">
           <ul>
-            <li>Changes CPU/memory <strong>REQUESTS</strong></li>
+            <li>Changes CPU/memory <strong>REQUESTS(NOT LIMIT)</strong></li>
             <li>Restarts pods to apply changes</li>
             <li>For batch jobs, right-sizing</li>
             <li>Use Off mode alongside HPA</li>
