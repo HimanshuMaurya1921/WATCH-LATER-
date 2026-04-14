@@ -52,6 +52,11 @@ Structured = confident. Confident = hireable.
 ## Step 4 — Structured Debug Flow ⭐ (The Core)
 
 **Always go top → down through the stack.**
+1. APPLICATION-LAYER (LOGS)
+2. POD LAYER (PODS)
+3. SERVICE LAYER (SVC)
+4. NETWORK & DNS LAYER (coreDNS & Network-Policy)
+5. infra level (Gcp/aws vpc-firewall , other network , or node-pressure , cpu-memory Resource)
 
 ### A. Application Layer
 
