@@ -231,8 +231,16 @@ Otherwise:
 ## 🧠 Core Statement
 
 Root app deploys child Applications into the argocd namespace, so its destination must be argocd.
+Root app applies Kubernetes manifests that define Application CRDs, and those CRDs are created in argocd.
 
-Child apps deploy workloads into their own namespaces (like frontend, backend), so their destination must match those namespaces.
+Why this matters:
+
+- ArgoCD is not doing something magical
+- It’s literally applying YAML like kubectl apply
+- The YAML just happens to be of kind Application
+
+
+### Child apps deploy workloads into their own namespaces (like frontend, backend), so their destination must match those namespaces.
 
 ## 🔐 What “destination” actually means
 
