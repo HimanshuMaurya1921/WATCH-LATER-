@@ -227,7 +227,7 @@ Otherwise:
 
 👉 Yes, even your “controller of controllers” needs permission to exist. Irony noted.
 
-# imp for root
+# ⚠️ IMPORATANT for Root-app
 ## 🧠 Core Statement
 
 Root app deploys child Applications into the argocd namespace, so its destination must be argocd.
