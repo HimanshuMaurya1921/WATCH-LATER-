@@ -231,6 +231,7 @@ Otherwise:
 ## 🧠 Core Statement
 
 Root app deploys child Applications into the argocd namespace, so its destination must be argocd.
+
 Root app applies Kubernetes manifests that define Application CRDs, and those CRDs are created in argocd.
 
 Why this matters:
