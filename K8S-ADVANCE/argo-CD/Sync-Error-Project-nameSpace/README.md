@@ -227,6 +227,17 @@ Otherwise:
 
 👉 Yes, even your “controller of controllers” needs permission to exist. Irony noted.
 
+# imp for root
+## 🧠 Core Statement
+
+Root app deploys child Applications into the argocd namespace, so its destination must be argocd.
+
+Child apps deploy workloads into their own namespaces (like frontend, backend), so their destination must match those namespaces.
+
+## 🔐 What “destination” actually means
+
+Destination is not where the app lives — it’s where the app is allowed to deploy resources.
+
 ---
 
 # 🧨 8. Source Repo Check (silent assassin)
