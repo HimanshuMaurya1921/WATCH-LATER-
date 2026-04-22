@@ -154,7 +154,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: YOUR_DOCKERHUB_USERNAME/node-app:1.0.0
+        image: docker.io/YOUR_DOCKERHUB_USERNAME/node-app:1.0.0
         ports:
         - containerPort: 3000
 ```
@@ -187,7 +187,7 @@ resources:
   - svc.yaml
 
 images:
-  - name: YOUR_DOCKERHUB_USERNAME/node-app
+  - name: docker.io/YOUR_DOCKERHUB_USERNAME/node-app
     newTag: 1.0.0
 ```
 
@@ -240,7 +240,7 @@ spec:
     - namePattern: "node-app"
       images:
         - alias: node-app
-          imageName: YOUR_DOCKERHUB_USERNAME/node-app
+          imageName: docker.io/YOUR_DOCKERHUB_USERNAME/node-app
 
           commonUpdateSettings:
             updateStrategy: semver
@@ -248,7 +248,7 @@ spec:
 
           manifestTargets:
             kustomize:
-              name: YOUR_DOCKERHUB_USERNAME/node-app
+              name: docker.io/YOUR_DOCKERHUB_USERNAME/node-app
 
   writeBackConfig:
     method: git
