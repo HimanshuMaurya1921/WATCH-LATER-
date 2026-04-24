@@ -71,6 +71,7 @@ Desired State (YAML) ──► API Server ──► Controller watches
 ---
 
 ## 2. ⚙️ Workloads & Controllers (3 min)
+->  a workload refers to an application running within a cluster
 
 ### The Hierarchy
 ```
