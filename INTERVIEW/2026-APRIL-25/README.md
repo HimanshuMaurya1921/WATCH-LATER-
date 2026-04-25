@@ -286,18 +286,19 @@
 > Jenkins has a **Global Credentials Manager** — go to Manage Jenkins → Credentials → Add credentials. Store the GitHub personal access token there and give it a readable ID like `github-token`.
 >
 > In the Jenkinsfile, reference it:
-> ```groovy
 
-> checkout([
-      $class: 'GitSCM',
-      branches: [[name: '*/main']],
-      userRemoteConfigs: [[
-          url: 'https://github.com/org/repo.git',
-          credentialsId: 'github-token'
-      ]]
-  ])
+```groovy
 
-> ```
+checkout([
+    $class: 'GitSCM',
+    branches: [[name: '*/main']],
+    userRemoteConfigs: [[
+        url: 'https://github.com/org/repo.git',
+        credentialsId: 'github-token'
+    ]]
+])
+```
+
 >
 > Jenkins injects the secret at runtime. It's masked in logs. The token never appears in code."
 
