@@ -287,9 +287,16 @@
 >
 > In the Jenkinsfile, reference it:
 > ```groovy
-> withCredentials([string(credentialsId: 'github-token', variable: 'GIT_TOKEN')]) {
->     sh 'git clone https://$GIT_TOKEN@github.com/org/repo.git'
-> }
+
+> checkout([
+      $class: 'GitSCM',
+      branches: [[name: '*/main']],
+      userRemoteConfigs: [[
+          url: 'https://github.com/org/repo.git',
+          credentialsId: 'github-token'
+      ]]
+  ])
+
 > ```
 >
 > Jenkins injects the secret at runtime. It's masked in logs. The token never appears in code."
